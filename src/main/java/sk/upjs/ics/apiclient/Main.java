@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sk.upjs.ics.apiclient;
 
 import java.util.ArrayList;
@@ -11,15 +6,11 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- *
- * @author Juraj
- */
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-//        Client http = new Client();
+//        GetAllReports http = new GetAllReports();
 //
 //        System.out.println("Testing 1 - Send Http GET request");
 //        http.sendGet();
@@ -28,7 +19,7 @@ public class Main {
 //        http.sendGetByRanges("Amanda");
         List<Callable<Void>> requests = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            requests.add(new Client());
+            requests.add(new GetReportsByNoOfDaysAndRangeHigh());
         }
         ExecutorService executor = Executors.newFixedThreadPool(20);
         long start = System.currentTimeMillis();

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sk.upjs.ics.apiclient;
 
 import java.io.BufferedReader;
@@ -15,44 +10,12 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-public class Client implements Callable<Void> {
-
-    private final String USER_AGENT = "Mozilla/5.0";
+public class GetAllReports implements Callable<Void> {
 
     // HTTP GET request
     public void sendGet() throws Exception {
 
         String url = "http://localhost:8080/reports";
-
-        HttpClient client = new DefaultHttpClient();
-        HttpGet request = new HttpGet(url);
-
-        // add request header
-        request.addHeader("accept", "application/json");
-
-        HttpResponse response = client.execute(request);
-
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : "
-                + response.getStatusLine().getStatusCode());
-
-        BufferedReader rd = new BufferedReader(
-                new InputStreamReader(response.getEntity().getContent()));
-
-        StringBuffer result = new StringBuffer();
-        String line = "";
-        while ((line = rd.readLine()) != null) {
-            result.append(line);
-        }
-
-        System.out.println(result.toString());
-
-    }
-
-    public void sendGetByRanges(String patientName) throws Exception {
-
-        String url1 = "http://localhost:8080/reports/ranges";
-        String url = "http://localhost:8080/reports/ranges" + patientName;
 
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
