@@ -1,27 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sk.upjs.ics.apiclient;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.concurrent.Callable;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-/**
- *
- * @author Juraj
- */
-public class GetReportsByNoOfDaysAndRangeHigh implements Callable<Void> {
+public class GetPatternsByType implements Callable<Void> {
 
-    public void sendGetReports(int rangeNoOfDays, double rangeHigh) throws Exception {
+    public void sendGetReports(String type) throws Exception {
 
-        String url = "http://localhost:8080/reports/" + "noofdays" + rangeNoOfDays + "," + rangeHigh;
+        String url = "http://localhost:8080/patterns/" + URLEncoder.encode(type, "UTF-8");
 
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
@@ -50,7 +42,7 @@ public class GetReportsByNoOfDaysAndRangeHigh implements Callable<Void> {
 
     @Override
     public Void call() throws Exception {
-        sendGetReports(2, 33);
+        sendGetReports("Low SG");
         return null;
     }
 

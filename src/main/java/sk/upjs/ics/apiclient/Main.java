@@ -19,13 +19,13 @@ public class Main {
 //        http.sendGetByRanges("Amanda");
         List<Callable<Void>> requests = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            requests.add(new GetReportsByNoOfDaysAndRangeHigh());
+            requests.add(new GetReportByPossibleCause());
         }
         ExecutorService executor = Executors.newFixedThreadPool(20);
         long start = System.currentTimeMillis();
         executor.invokeAll(requests);
         long end = System.currentTimeMillis();
-        System.out.println(end - start);
+        System.out.println("Ended in time: " + (end - start));
 
     }
 

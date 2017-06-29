@@ -2,6 +2,7 @@ package sk.upjs.ics.apiclient;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.util.concurrent.Callable;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -12,7 +13,7 @@ public class GetReportsByDaytimeAndHighRange implements Callable<Void> {
 
     public void sendGetReports(String daytime, double rangeHigh) throws Exception {
 
-        String url = "http://localhost:8080/reports/" + "1" + daytime + "," + rangeHigh;
+        String url = "http://localhost:8080/reports/" + "daytime" + URLEncoder.encode(daytime, "UTF-8") + "," + rangeHigh;
 
         HttpClient client = new DefaultHttpClient();
         HttpGet request = new HttpGet(url);
