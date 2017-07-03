@@ -9,7 +9,9 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-public class GetReportsByDaytimeAndHighRange implements Callable<Void> {
+public class GetReportsByDaytimeAndHighRange implements Callable<Long> {
+
+    private Long responseTime;
 
     public void sendGetReports(String daytime, double rangeHigh) throws Exception {
 
@@ -21,7 +23,10 @@ public class GetReportsByDaytimeAndHighRange implements Callable<Void> {
         // add request header
         request.addHeader("accept", "application/json");
 
+        Long before = System.currentTimeMillis();
         HttpResponse response = client.execute(request);
+        Long after = System.currentTimeMillis();
+        responseTime = after - before;
 
         System.out.println("\nSending 'GET' request to URL : " + url);
         System.out.println("Response Code : "
@@ -41,8 +46,8 @@ public class GetReportsByDaytimeAndHighRange implements Callable<Void> {
     }
 
     @Override
-    public Void call() throws Exception {
+    public Long call() throws Exception {
         sendGetReports("Post-dinner", 33);
-        return null;
+        return responseTime;
     }
 }

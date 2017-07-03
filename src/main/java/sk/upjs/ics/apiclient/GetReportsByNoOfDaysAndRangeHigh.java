@@ -1,23 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sk.upjs.ics.apiclient;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.time.Clock;
 import java.util.concurrent.Callable;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-/**
- *
- * @author Juraj
- */
-public class GetReportsByNoOfDaysAndRangeHigh implements Callable<Void> {
+
+public class GetReportsByNoOfDaysAndRangeHigh implements Callable<Long> {
+
+    private Long responseTime;
 
     public void sendGetReports(int rangeNoOfDays, double rangeHigh) throws Exception {
 
@@ -28,9 +24,10 @@ public class GetReportsByNoOfDaysAndRangeHigh implements Callable<Void> {
 
         // add request header
         request.addHeader("accept", "application/json");
-
+        Long before = System.currentTimeMillis();
         HttpResponse response = client.execute(request);
-
+        Long after = System.currentTimeMillis();
+        responseTime = after - before;
         System.out.println("\nSending 'GET' request to URL : " + url);
         System.out.println("Response Code : "
                 + response.getStatusLine().getStatusCode());
@@ -49,9 +46,9 @@ public class GetReportsByNoOfDaysAndRangeHigh implements Callable<Void> {
     }
 
     @Override
-    public Void call() throws Exception {
+    public Long call() throws Exception {
         sendGetReports(2, 33);
-        return null;
+        return responseTime;
     }
 
 }
